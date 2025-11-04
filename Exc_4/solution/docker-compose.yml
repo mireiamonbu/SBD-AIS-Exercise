@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: postgres-orders
+    environment:
+      POSTGRES_DB: order
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      PGDATA: /var/lib/postgresql/18/docker
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/18/docker
+
+  orderservice:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: orderservice
+    environment:
+      POSTGRES_DB: order
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_TCP_PORT: "5432"
+      DB_HOST: postgres   
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
