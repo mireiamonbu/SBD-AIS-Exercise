@@ -145,7 +145,7 @@ services:
     environment:
       # todo use secrets
       - MINIO_ROOT_USER_FILE=/run/secrets/s3_user
-      - MINIO_ROOT_PASSWORD_FILE=/run/secrets/s3_user
+      - MINIO_ROOT_PASSWORD_FILE=/run/secrets/s3_password
     networks:
       - intercom
     deploy:
